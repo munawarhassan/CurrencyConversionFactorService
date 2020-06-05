@@ -9,6 +9,7 @@ import com.ibm.currency.model.CoreException;
 import com.ibm.currency.model.CoreModel;
 import com.ibm.currency.model.CoreResponseModel;
 import com.ibm.currency.model.CurrencyConversionFactor;
+import com.ibm.currency.model.CurrencyExchangeBean;
 import com.ibm.currency.repo.CurrencyConverterRepository;
 
 @Service
@@ -19,13 +20,16 @@ public class CurrencyConverterService{
 	
 	@Autowired
 	private CoreResponseModel respModel;
+	
+	@Autowired
+	private CurrencyExchangeBean exchangeBean;
 
 	
 	private ResponseEntity<?>  respEntity;
 	
 	public ResponseEntity<?>  createConversionfactor(CurrencyConversionFactor ccf){
 		try {
-			CurrencyConversionFactor obj = currencyRepo.save(ccf);
+			CurrencyConversionFactor obj = currencyRepo.save(ccf);						
 			return populateSuccessResponseWithResult(obj, "Successfully saved records to database");
 		} catch (Exception ex) {
 		
@@ -48,25 +52,29 @@ public class CurrencyConverterService{
 		}
 	}
 	
-	public ResponseEntity<?>  getConversionfactor(String countryCode){
+	public CurrencyExchangeBean getConversionfactor(String countryCode){
 		try {			
-			CurrencyConversionFactor  currencyconversionfactor = currencyRepo.findByCountryCode(countryCode);			
-			return populateSuccessResponseWithResult(currencyconversionfactor, "Successfully fetch record");
+			CurrencyConversionFactor  obj = currencyRepo.findByCountryCode(countryCode);	
+			exchangeBean.setCountryCode(obj.getCountryCode());
+			exchangeBean.setConversionFactor(obj.getConversionFactor());	
+			exchangeBean.setMessage("successfully fetched message");
+			return exchangeBean;
+			
 		} catch (Exception ex) {
-		
-			return populateFailureResponse("Faiiled to find record"+ ex.getMessage());
+			exchangeBean.setMessage("Error in fetching record "+ ex.getMessage());
+			return exchangeBean;
 		}
 	}
 	
 	
 	
-public ResponseEntity<?>   populateSuccessResponseWithResult(CurrencyConversionFactor result, String message){
-		
+public ResponseEntity<?>   populateSuccessResponseWithResult(CurrencyConversionFactor result, String message){		
+	
 		respModel = new CoreResponseModel();
 		respModel.setStatusCode(200);
 		respModel.setMessage(message);
 		respModel.setResponseBody(result);
-		respEntity = new ResponseEntity<Object>(respModel,HttpStatus.OK);		
+		respEntity = new ResponseEntity<Object>(respModel,HttpStatus.OK);
 		return respEntity;
 	}
 

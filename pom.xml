@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ibm.currency</groupId>
-	<artifactId>CurrencyService1</artifactId>
+	<artifactId>CurrencyConversionFactorService</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>CurrencyService1</name>
+	<name>CurrencyConversionFactorService</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -44,16 +44,16 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 	      <groupId>org.springframework.cloud</groupId>
 	      <artifactId>spring-cloud-cloudfoundry-discovery</artifactId>
-	    </dependency>
+	    </dependency>	 -->
 		
-		<!--
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
+		<!--
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
@@ -69,8 +69,16 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-turbine-stream</artifactId>
-		</dependency> -->
-
+		</dependency> 
+		-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+        <dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
