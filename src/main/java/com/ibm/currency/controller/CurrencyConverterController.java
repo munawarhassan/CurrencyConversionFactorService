@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ibm.currency.model.CoreException;
 import com.ibm.currency.model.CurrencyConversionFactor;
+import com.ibm.currency.model.CurrencyConverterConfig;
 import com.ibm.currency.model.CurrencyExchangeBean;
 import com.ibm.currency.service.CurrencyConverterService;
 
@@ -24,15 +25,17 @@ import com.ibm.currency.service.CurrencyConverterService;
 public class CurrencyConverterController{
 	
 	
-	@Value("${currencyconversionservice.greetprop}")
-	private String greetProp;
+	/*@Value("${currencyconversionservice.greetprop}")
+	private String greetProp;*/
 
+	@Autowired
+	private CurrencyConverterConfig  currencyConverterConfig;
 	
 	@Autowired
 	private CurrencyConverterService currencyservice;
 	@RequestMapping(path = "/default", method = RequestMethod.GET)
 	public String getDefaultMessage() {
-		return greetProp;
+		return currencyConverterConfig.getGreetProp();
 	}
 	
 	//@ExceptionHandler(CurrencyConverterException.class)
@@ -53,7 +56,7 @@ public class CurrencyConverterController{
 
 	
 	@RequestMapping(path = "/getconversionfactor", method = RequestMethod.POST, produces = {"application/json"})	
-    public CurrencyExchangeBean getConversionFactor(@RequestBody CurrencyExchangeBean currencyExchangeBean) throws CoreException{ 
+    public CurrencyExchangeBean getConversionFactor(@RequestBody CurrencyExchangeBean currencyExchangeBean){ 
 			   
 		return currencyservice.getConversionfactor(currencyExchangeBean.getCountryCode());
 		

@@ -21,8 +21,7 @@ public class CurrencyConverterService{
 	@Autowired
 	private CoreResponseModel respModel;
 	
-	@Autowired
-	private CurrencyExchangeBean exchangeBean;
+	
 
 	
 	private ResponseEntity<?>  respEntity;
@@ -48,22 +47,19 @@ public class CurrencyConverterService{
 			return populateSuccessResponseWithResult(obj, "Successfully Update records to database");
 		} catch (Exception ex) {
 		
-			return populateFailureResponse("Failed to update record"+ ex.getMessage());
+			return populateFailureResponse("Failed to update record as no record available");
 		}
 	}
 	
 	public CurrencyExchangeBean getConversionfactor(String countryCode){
-		try {			
-			CurrencyConversionFactor  obj = currencyRepo.findByCountryCode(countryCode);	
+					
+			CurrencyConversionFactor  obj = currencyRepo.findByCountryCode(countryCode);
+			CurrencyExchangeBean exchangeBean = new CurrencyExchangeBean();
 			exchangeBean.setCountryCode(obj.getCountryCode());
 			exchangeBean.setConversionFactor(obj.getConversionFactor());	
-			exchangeBean.setMessage("successfully fetched message");
+			exchangeBean.setMessage("Successfully Coverted With Present Rate from USD to");
 			return exchangeBean;
-			
-		} catch (Exception ex) {
-			exchangeBean.setMessage("Error in fetching record "+ ex.getMessage());
-			return exchangeBean;
-		}
+		
 	}
 	
 	
