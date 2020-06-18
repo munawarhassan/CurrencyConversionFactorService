@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableEurekaClient
+@EnableDiscoveryClient
 public class CurrencyConverterServiceApplication {
 
 	public static void main(String[] args) {

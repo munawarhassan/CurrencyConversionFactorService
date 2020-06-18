@@ -52,12 +52,15 @@ public class CurrencyConverterService{
 	}
 	
 	public CurrencyExchangeBean getConversionfactor(String countryCode){
+		
+		   System.out.println(" I am calculating conversionfactor");
 					
 			CurrencyConversionFactor  obj = currencyRepo.findByCountryCode(countryCode);
 			CurrencyExchangeBean exchangeBean = new CurrencyExchangeBean();
 			exchangeBean.setCountryCode(obj.getCountryCode());
 			exchangeBean.setConversionFactor(obj.getConversionFactor());	
-			exchangeBean.setMessage("Successfully Coverted With Present Rate from USD to");
+			//exchangeBean.setMessage("Successfully Coverted With Present Rate from USD to");
+			exchangeBean.setMessage("Successfully Fetched the conversion factor of USD  for "+ countryCode );
 			return exchangeBean;
 		
 	}
