@@ -28,7 +28,8 @@ public class CurrencyConverterService{
 	
 	public ResponseEntity<?>  createConversionfactor(CurrencyConversionFactor ccf){
 		try {
-			CurrencyConversionFactor obj = currencyRepo.save(ccf);						
+			CurrencyConversionFactor obj = currencyRepo.save(ccf);		
+			
 			return populateSuccessResponseWithResult(obj, "Successfully saved records to database");
 		} catch (Exception ex) {
 		
@@ -58,9 +59,7 @@ public class CurrencyConverterService{
 			CurrencyConversionFactor  obj = currencyRepo.findByCountryCode(countryCode);
 			CurrencyExchangeBean exchangeBean = new CurrencyExchangeBean();
 			exchangeBean.setCountryCode(obj.getCountryCode());
-			exchangeBean.setConversionFactor(obj.getConversionFactor());	
-			//exchangeBean.setMessage("Successfully Coverted With Present Rate from USD to");
-			exchangeBean.setMessage("Successfully Fetched the conversion factor of USD  for "+ countryCode );
+			exchangeBean.setConversionFactor(obj.getConversionFactor());
 			return exchangeBean;
 		
 	}
@@ -80,8 +79,8 @@ public ResponseEntity<?>   populateSuccessResponseWithResult(CurrencyConversionF
 public ResponseEntity<?>  populateFailureResponse( String message){	
 	respModel = new CoreResponseModel();
 	respModel.setStatusCode(HttpStatus.BAD_REQUEST.value());
-	respModel.setSuccess(false);
-	respModel.setMessage(message);		
+	respModel.setMessage(message);
+	respModel.setSuccess(false);		
 	respEntity = new ResponseEntity<Object>(respModel,HttpStatus.BAD_REQUEST);		
 	return respEntity;
 }
