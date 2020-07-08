@@ -5,6 +5,12 @@ spring:
     name: CurrencyConversionFactorService
   profiles:
     active: dev
+  sleuth:
+    trace-id128: true
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: http://192.168.99.100:9411/
     
 eureka:
   instance:
@@ -13,7 +19,16 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka
     
-            
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+        
+logging:
+  pattern:
+    level: "[%X{X-B3-TraceId} : %X{X-B3-SpanId}] %-5p [%t] %C{2} - %m%n"           
       
       
   

@@ -3,14 +3,4 @@ spring:
     config:
       uri: http://localhost:8888   
   
-  sleuth:
-    trace-id128: true
-    sampler:
-      probability: 1.0
-  zipkin:
-    base-url: http://zipkin:9411/
-
-
-
-
 
