@@ -1,6 +1,12 @@
 spring: 
+  cloud:
+    config:
+      uri: ${currencyservice.configserverurl}
+      fail-fast: false
   application:
     name: CurrencyConversionFactorService
   profiles:
     active: dev
 
+server:
+  port: 0 
