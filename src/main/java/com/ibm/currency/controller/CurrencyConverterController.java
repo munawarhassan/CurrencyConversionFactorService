@@ -4,6 +4,7 @@ package com.ibm.currency.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ibm.currency.model.CoreException;
 import com.ibm.currency.model.CurrencyConversionFactor;
 import com.ibm.currency.model.CurrencyConverterConfig;
-import com.ibm.currency.model.CurrencyExchangeBean;
 import com.ibm.currency.service.CurrencyConverterService;
 
 @RestController
@@ -55,10 +55,16 @@ public class CurrencyConverterController{
     }
 
 	
-	@RequestMapping(path = "/getconversionfactor", method = RequestMethod.POST, produces = {"application/json"})	
-    public CurrencyExchangeBean getConversionFactor(@RequestBody CurrencyExchangeBean currencyExchangeBean){ 
-			   
-		return currencyservice.getConversionfactor(currencyExchangeBean.getCountryCode());
+	@RequestMapping(path = "/getconversionfactor/{currency}", method = RequestMethod.GET, produces = {"application/json"})	
+    public CurrencyConversionFactor getConversionFactor(@PathVariable String currency) throws CoreException{ 
+		
+	
+		CurrencyConversionFactor ccf = currencyservice.getConversionfactor(currency);
+		if(null !=ccf) {
+			return ccf;
+		}else {
+			throw new CoreException(400,"No Data Found");
+		}
 		
     }
 	

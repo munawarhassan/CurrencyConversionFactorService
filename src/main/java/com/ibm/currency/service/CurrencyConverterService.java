@@ -9,7 +9,6 @@ import com.ibm.currency.model.CoreException;
 import com.ibm.currency.model.CoreModel;
 import com.ibm.currency.model.CoreResponseModel;
 import com.ibm.currency.model.CurrencyConversionFactor;
-import com.ibm.currency.model.CurrencyExchangeBean;
 import com.ibm.currency.repo.CurrencyConverterRepository;
 
 @Service
@@ -39,7 +38,7 @@ public class CurrencyConverterService{
 	
 	public ResponseEntity<?>  updateConversionfactor(CurrencyConversionFactor ccf){
 		try {			
-			CurrencyConversionFactor  currencyconversionfactor = currencyRepo.findByCountryCode(ccf.getCountryCode());
+			CurrencyConversionFactor  currencyconversionfactor = currencyRepo.findByCurrency(ccf.getCurrency());
 			if(null == currencyconversionfactor) {
 				return populateFailureResponse("There is no such country code");
 			}
@@ -52,15 +51,17 @@ public class CurrencyConverterService{
 		}
 	}
 	
-	public CurrencyExchangeBean getConversionfactor(String countryCode){
+	public CurrencyConversionFactor getConversionfactor(String currency){
 		
 		   System.out.println(" I am calculating conversionfactor");
 					
-			CurrencyConversionFactor  obj = currencyRepo.findByCountryCode(countryCode);
-			CurrencyExchangeBean exchangeBean = new CurrencyExchangeBean();
+			CurrencyConversionFactor  obj = currencyRepo.findByCurrency(currency);
+			/*CurrencyExchangeBean exchangeBean = new CurrencyExchangeBean();
 			exchangeBean.setCountryCode(obj.getCountryCode());
-			exchangeBean.setConversionFactor(obj.getConversionFactor());
-			return exchangeBean;
+			exchangeBean.setConversionFactor(obj.getConversionFactor());*/
+			
+			
+			return obj;
 		
 	}
 	

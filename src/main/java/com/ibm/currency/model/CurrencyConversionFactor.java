@@ -12,21 +12,27 @@ import javax.persistence.Id;
 public class CurrencyConversionFactor extends CoreModel{
 	
    
-     
+	
+	@Column(name = "id", table = "currencyconversionfactor" , unique = true )
+	private Integer id;
 	@Id
+	@Column(name = "currency", table = "currencyconversionfactor",  unique = true)	
+	private String currency;	
 	@Column(name = "countrycode", table = "currencyconversionfactor" , unique = true )
 	private String countryCode;
 	@Column(name = "conversionfactor", table = "currencyconversionfactor")
-	private Double conversionFactor;
+	private Double conversionFactor;	
 	
 	
 	
 	public CurrencyConversionFactor() {
 		super();
 	}
-	public CurrencyConversionFactor(String countryCode, Double conversionFactor) {		
+	public CurrencyConversionFactor(Integer id,String currency,String countryCode, Double conversionFactor) {		
+		this.id = id;
 		this.countryCode = countryCode;
 		this.conversionFactor = conversionFactor;
+		this.currency = currency;
 	}
 	
 	
@@ -43,6 +49,18 @@ public class CurrencyConversionFactor extends CoreModel{
 	}
 	public void setConversionFactor(Double conversionFactor) {
 		this.conversionFactor = conversionFactor;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getCurrency() {
+		return currency;
+	}
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 	
 	

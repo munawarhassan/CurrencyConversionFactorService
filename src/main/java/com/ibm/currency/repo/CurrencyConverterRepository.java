@@ -9,5 +9,7 @@ import com.ibm.currency.model.CurrencyConversionFactor;
 public interface CurrencyConverterRepository extends JpaRepository<CurrencyConversionFactor, Integer>{
 		
 	
-	CurrencyConversionFactor findByCountryCode(String countryCode);
+	CurrencyConversionFactor findByCurrency(String currency);
+	
+	
 }
