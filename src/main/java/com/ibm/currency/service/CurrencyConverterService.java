@@ -1,5 +1,7 @@
 package com.ibm.currency.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,20 +20,20 @@ public class CurrencyConverterService{
 	private CurrencyConverterRepository  currencyRepo;
 	
 	@Autowired
-	private CoreResponseModel respModel;
-	
-	
+	private CoreResponseModel respModel;	
 
 	
 	private ResponseEntity<?>  respEntity;
 	
+	private static Logger log = LoggerFactory.getLogger(CurrencyConverterService.class);
+	
 	public ResponseEntity<?>  createConversionfactor(CurrencyConversionFactor ccf){
 		try {
 			CurrencyConversionFactor obj = currencyRepo.save(ccf);		
-			
+			log.info(" Recordcreated Successfully");
 			return populateSuccessResponseWithResult(obj, "Successfully saved records to database");
 		} catch (Exception ex) {
-		
+			log.info(" Failed to insert record "+ex.getMessage());
 			return populateFailureResponse("Failed to insert record"+ ex.getMessage());
 		}
 	}
@@ -44,6 +46,7 @@ public class CurrencyConverterService{
 			}
 			currencyconversionfactor.setConversionFactor(ccf.getConversionFactor());
 			CurrencyConversionFactor obj = currencyRepo.save(ccf);
+			log.info(" Record Updated Successfully");
 			return populateSuccessResponseWithResult(obj, "Successfully Update records to database");
 		} catch (Exception ex) {
 		
@@ -60,7 +63,7 @@ public class CurrencyConverterService{
 			exchangeBean.setCountryCode(obj.getCountryCode());
 			exchangeBean.setConversionFactor(obj.getConversionFactor());*/
 			
-			
+			log.info(" CurrencyConversionFactor retrieved=" + obj);
 			return obj;
 		
 	}
