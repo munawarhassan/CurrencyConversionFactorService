@@ -1,6 +1,8 @@
 package com.ibm.currency.controller;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -23,10 +25,10 @@ import com.ibm.currency.service.CurrencyConverterService;
 //@RefreshScope
 @RequestMapping("/currencyconversionfactor")
 public class CurrencyConverterController{
+	private static Logger log = LoggerFactory.getLogger(CurrencyConverterController.class);
 	
-	
-	/*@Value("${currencyconversionservice.greetprop}")
-	private String greetProp;*/
+	@Value("${currencyconversionservice.greetprop}")
+	private String greetProp;
 
 	@Autowired
 	private CurrencyConverterConfig  currencyConverterConfig;
@@ -35,6 +37,9 @@ public class CurrencyConverterController{
 	private CurrencyConverterService currencyservice;
 	@RequestMapping(path = "/default", method = RequestMethod.GET)
 	public String getDefaultMessage() {
+		
+		log.info("greetProp value ="+ greetProp);
+		
 		return currencyConverterConfig.getGreetProp();
 	}
 	
