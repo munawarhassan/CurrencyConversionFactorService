@@ -27,7 +27,7 @@ import com.ibm.currency.service.CurrencyConverterService;
 public class CurrencyConverterController{
 	private static Logger log = LoggerFactory.getLogger(CurrencyConverterController.class);
 	
-	@Value("${currencyconversionservice.greetprop}")
+	//@Value("${currencyconversionservice.greetprop}")
 	private String greetProp;
 
 	@Autowired
