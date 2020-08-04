@@ -27,8 +27,10 @@ import com.ibm.currency.service.CurrencyConverterService;
 public class CurrencyConverterController{
 	private static Logger log = LoggerFactory.getLogger(CurrencyConverterController.class);
 	
-	//@Value("${currencyconversionservice.greetprop}")
-	private String greetProp;
+	
+	/*
+	 * @Value("${greetProp}") private String greetProp;
+	 */
 
 	@Autowired
 	private CurrencyConverterConfig  currencyConverterConfig;
@@ -38,9 +40,7 @@ public class CurrencyConverterController{
 	@RequestMapping(path = "/default", method = RequestMethod.GET)
 	public String getDefaultMessage() {
 		
-		log.info("greetProp value ="+ greetProp);
-		
-		return currencyConverterConfig.getGreetProp();
+		return	currencyConverterConfig.getGreetProp();
 	}
 	
 	//@ExceptionHandler(CurrencyConverterException.class)
