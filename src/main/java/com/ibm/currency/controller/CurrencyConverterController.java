@@ -40,7 +40,8 @@ public class CurrencyConverterController{
 	@RequestMapping(path = "/default", method = RequestMethod.GET)
 	public String getDefaultMessage() {
 		
-		return	currencyConverterConfig.getGreetProp();
+		log.info("greetProp=="+currencyConverterConfig.getGreetProp());
+		return	"Hello , I am ready for service 1";
 	}
 	
 	//@ExceptionHandler(CurrencyConverterException.class)
@@ -52,7 +53,7 @@ public class CurrencyConverterController{
 		
     }
 	
-	@RequestMapping(path = "/updateconversionfactor", method = RequestMethod.POST, produces = {"application/json"})	
+	@RequestMapping(path = "/updateconversionfactor", method = RequestMethod.PUT, produces = {"application/json"})	
     public ResponseEntity<?> updateConversionFactor(@RequestBody CurrencyConversionFactor ccf) throws CoreException{ 
 			
 		return currencyservice.updateConversionfactor(ccf);
